@@ -2,3 +2,5 @@
 *.log
 /vendor/
 /app/test/
+/composer.json
+/composer.lock

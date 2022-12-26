@@ -44,7 +44,7 @@ class view{
 	//支持多级目录
 	public function display($tpl=''){
 		if ($tpl == '') {
-			$tpl = CONTROLLER . '_' . ACTION;
+			$tpl = strtolower(CONTROLLER . '_' . ACTION);
 		}
 		if (!preg_match('/\.[a-z]{3,5}$/',$tpl)) {
 			$tpl .= '.php';

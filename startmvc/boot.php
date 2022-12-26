@@ -7,16 +7,14 @@
  * @license   StartMVC 遵循Apache2开源协议发布，需保留开发者信息。
  * @link	  http://startmvc.com
  */
- 
-//版本号
-define('SM_VERSION', '1.3.2');
-define('SM_UPDATE', '20221128');
-if (phpversion() < 7.2) {
-	die('程序要求PHP7+环境版本，当前环境为PHP' . phpversion() . ',请升级服务器环境');
+
+if (version_compare(PHP_VERSION , '7.2', '<')) {
+	die('程序要求PHP7+环境版本，当前环境为PHP' . PHP_VERSION . ',请升级服务器环境');
 }
-
 session_start();
-
+//版本号
+define('SM_VERSION', '1.3.3');
+define('SM_UPDATE', '20221226');
 // 应用命名空间（请与应用所在目录名保持一致）
 define('APP_NAMESPACE', 'app');
 //应用目录
@@ -33,17 +31,13 @@ define('TEMP_PATH', ROOT_PATH . 'runtime'.DS.'temp'.DS);
 define('CONFIG_PATH', ROOT_PATH . 'config'.DS);
 define('_STATIC_','/static/');
 if (file_exists(ROOT_PATH.'vendor'.DS.'autoload.php')) {
-	require ROOT_PATH.'vendor'.DS.'autoload.php'; //composer自动加载
+	require_once ROOT_PATH.'vendor'.DS.'autoload.php'; //composer自动加载
 } else {
-	require CORE_PATH.'autoload.php'; //框架自动加载
+	require_once CORE_PATH.'autoload.php'; //框架自动加载
 }
 require_once(CORE_PATH . 'function.php');//加载系统内置函数
 date_default_timezone_set(config('timezone'));
-if (config('debug')) {
-	error_reporting(E_ALL);
-} else {
-	error_reporting(0);
-}
+error_reporting(config('debug') ? E_ALL : 0);
 
 $app = new startmvc\lib\App;
 $app->run();
